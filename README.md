@@ -3,6 +3,7 @@ Template for the Rust Dioxus desktop/web framework.
 
 ## Desktop
 ### Dependencies
+---
 #### Windows
 
 Windows Desktop apps depend on WebView2 – a library that should be installed in all modern Windows distributions. If you have Edge installed, then Dioxus will work fine. If you *don't* have Webview2, [then you can install it through Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). MS provides 3 options:
@@ -12,6 +13,8 @@ Windows Desktop apps depend on WebView2 – a library that should be installed i
 3. A statically linked version of Webview2 in your final binary for offline users
 
 For development purposes, use Option 1.
+
+---
 
 #### Linux
 
@@ -29,6 +32,8 @@ sudo apt install libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev
 ```
 
 If you run into issues, make sure you have all the basics installed, as outlined in the [Tauri docs](https://tauri.studio/v1/guides/getting-started/prerequisites#setting-up-linux).
+
+---
 
 ### Running
 ```bash
