@@ -1,0 +1,17 @@
+[package]
+name = "dioxus-tailwindcss"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = "0.3.2"
+
+
+[target.'cfg(any(unix, windows))'.dependencies]
+dioxus-desktop = { version = "0.3.0" }
+# dioxus-tui = "0.2.2"
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+dioxus-web = { version = "0.3.1" }
