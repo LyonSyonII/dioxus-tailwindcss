@@ -3,7 +3,6 @@ Template for the Rust Dioxus desktop/web framework.
 
 ## Desktop
 ### Dependencies
----
 #### Windows
 
 Windows Desktop apps depend on WebView2 – a library that should be installed in all modern Windows distributions. If you have Edge installed, then Dioxus will work fine. If you *don't* have Webview2, [then you can install it through Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). MS provides 3 options:
