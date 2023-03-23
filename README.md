@@ -1,6 +1,12 @@
 # Dioxus + TailwindCSS
 Template for the Rust Dioxus desktop/web framework.
 
+## Common Dependencies
+Install tailwind-cli:
+```bash
+yarn global add tailwindcss
+```
+
 ## Desktop
 ### Dependencies
 #### Windows
