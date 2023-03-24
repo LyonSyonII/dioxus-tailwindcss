@@ -1,0 +1,49 @@
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.build-publish.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout if required
+      if: ${{ inputs.checkout == 'true' }}
+      uses: actions/checkout@v3
+
+    - name: Setup Rust Toolchain
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        target: wasm32-unknown-unknown
+      
+    - name: Setup Dioxus Cli
+      run: cargo install dioxus-cli
+      
+    - name: Setup TailwindCSS Cli
+      run: npm -g install tailwindcss
+      
+    - name: Run TailwindCSS Compiler
+      run: npx tailwind -c tailwind.config.js -o src/index.css --minify
+      
+    - name: Run Dioxus
+      run: dioxus build --release
+      
+    - name: Upload
+      uses: actions/upload-pages-artifact@v1.0.4
+      with: 
+        path: dist
+
+    - id: deploy
+      name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v1
+      with:
+        token: ${{ github.token }}
+
