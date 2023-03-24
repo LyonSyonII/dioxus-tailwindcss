@@ -25,6 +25,9 @@ jobs:
       with:
         toolchain: stable
         target: wasm32-unknown-unknown
+        
+    - name: Rust Cache
+      uses: Swatinem/rust-cache@v2.2.1
       
     - name: Setup Dioxus Cli
       run: cargo install dioxus-cli
@@ -32,8 +35,8 @@ jobs:
     - name: Setup TailwindCSS Cli
       run: npm -g install tailwindcss
       
-    - name: Run TailwindCSS Compiler
-      run: npx tailwind -c tailwind.config.js -o src/index.css --minify
+  #  - name: Run TailwindCSS Compiler
+  #    run: npx tailwind -c tailwind.config.js -o src/index.css --minify
       
     - name: Run Dioxus
       run: dioxus build --release
