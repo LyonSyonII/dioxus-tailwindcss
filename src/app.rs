@@ -10,7 +10,7 @@ pub fn App(cx: Scope) -> Element {
         div {
             class: "flex flex-col h-screen items-center",
             div {
-                class: "grid grid-cols-2 w-1/4 min-w-fit place-items-center mt-60",
+                class: "grid grid-cols-2 w-1/4 min-w-fit mt-60",
                 a {
                     class: if_then_else(dioxus_hover, "animate-dioxus", ""),
                     href: "https://dioxuslabs.com",
@@ -34,9 +34,20 @@ pub fn App(cx: Scope) -> Element {
                     }
                 }
             }
-            h1 {
-                class: "py-16 font-bold text-5xl",
-                "Dioxus ❤️ Tailwind"
+            div {
+                class: "grid grid-cols-5 py-16 font-bold text-5xl gap-3",
+                h1 {
+                    class: "col-span-2 place-self-end",
+                    "Dioxus"
+                },
+                h1 {
+                    class: "place-self-center",
+                    "❤️"
+                },
+                h1 {
+                    class: "col-span-2",
+                    "Tailwind"
+                },
             }
             button {
                 class: "bg-gray-200 px-4 py-2 rounded-lg border border-white hover:border-indigo-500 active:scale-95 transition-all",
