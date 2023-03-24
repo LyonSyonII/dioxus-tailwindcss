@@ -1,0 +1,10 @@
+[package]
+name = "macros"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+percent-encoding = "2.2.0"
+
+[lib]
+proc-macro = true

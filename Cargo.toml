@@ -5,9 +5,7 @@ edition = "2021"
 
 [dependencies]
 dioxus = "0.3.2"
-include-base64 = "0.1.0"
-percent-encoding = "2.2.0"
-
+macros = { path = "macros" }
 
 [target.'cfg(any(unix, windows))'.dependencies]
 dioxus-desktop = { version = "0.3.0" }
