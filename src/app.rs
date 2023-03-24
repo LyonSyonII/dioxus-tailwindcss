@@ -4,20 +4,18 @@ use dioxus::{prelude::*};
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
     let dioxus_hover = use_state(cx, || false);
+    let dioxus_hover_animation = || if_then_else(dioxus_hover, "animate-dioxus", ""); 
     let tailwind_hover = use_state(cx, || false);
+    let tailwind_hover_animation = || if_then_else(tailwind_hover, "animate-tailwind", ""); 
     
     let rsx = rsx!(
         div {
             class: "flex flex-col h-screen items-center",
             div {
-                class: "grid grid-cols-2 w-1/4 min-w-fit mt-60",
-
-            }
-            div {
-                class: "grid grid-cols-5 py-16 font-bold text-5xl gap-3",
+                class: "grid grid-cols-5 pb-16 mt-60 font-bold text-5xl gap-3",
 
                 a {
-                    class: "col-span-2 place-self-end mr-6 {if_then_else(dioxus_hover, \"animate-dioxus\", \"\")}",
+                    class: "col-span-2 place-self-end mr-6 {dioxus_hover_animation()}",
                     href: "https://dioxuslabs.com",
                     target: "_blank",
                     onmouseenter: move |_| dioxus_hover.set(true),
@@ -28,7 +26,7 @@ pub fn App(cx: Scope) -> Element {
                     },
                 }
                 a {
-                    class: "col-span-2 col-start-4 place-self-center {if_then_else(tailwind_hover, \"animate-tailwind\", \"\")}",
+                    class: "col-span-2 col-start-4 place-self-center {tailwind_hover_animation()}",
                     href: "https://tailwindcss.com",
                     target: "_blank",
                     onmouseenter: move |_| tailwind_hover.set(true),
