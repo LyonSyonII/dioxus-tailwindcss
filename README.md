@@ -62,3 +62,13 @@ dioxus serve
 ```bash
 dioxus build
 ``` 
+
+## Troubleshooting
+
+* ### `public` files are not loading in Desktop builds  
+
+    Probably a bug, but at the moment images or other files will not load correctly in Desktop builds (they will in web builds though).
+
+    To fix it you can use `include_str`, `include_bytes` or the macro implemented in this crate `include_url_encoded`, which allows to load and embed correctly `base64` or `svg` files.
+
+    For examples see the `src/app.rs` file. 
