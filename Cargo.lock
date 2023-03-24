@@ -752,6 +752,8 @@ dependencies = [
  "dioxus",
  "dioxus-desktop",
  "dioxus-web",
+ "include-base64",
+ "percent-encoding",
 ]
 
 [[package]]
@@ -1475,6 +1477,17 @@ dependencies = [
  "color_quant",
  "num-rational",
  "num-traits",
+]
+
+[[package]]
+name = "include-base64"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b6a0c7dce4536b2d38681542df9746f57757e85c66340719d3825e2c9156b970"
+dependencies = [
+ "base64",
+ "quote",
+ "syn 1.0.109",
 ]
 
 [[package]]

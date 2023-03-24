@@ -1,13 +1,18 @@
 #![allow(non_snake_case)]
-use dioxus::{prelude::*};
+use dioxus::prelude::*;
+use include_base64::include_base64;
+use percent_encoding::NON_ALPHANUMERIC;
+
+const DIOXUS_IMG: &'static str = include_str!("../assets/dioxus.svg");
+const TAILWIND_IMG: &'static str = include_str!("../assets/tailwind.svg");
 
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
     let dioxus_hover = use_state(cx, || false);
-    let dioxus_hover_animation = || if_then_else(dioxus_hover, "animate-dioxus", ""); 
+    let dioxus_hover_animation = || if_then_else(dioxus_hover, "animate-dioxus", "");
     let tailwind_hover = use_state(cx, || false);
-    let tailwind_hover_animation = || if_then_else(tailwind_hover, "animate-tailwind", ""); 
-    
+    let tailwind_hover_animation = || if_then_else(tailwind_hover, "animate-tailwind", "");
+
     let rsx = rsx!(
         div {
             class: "flex flex-col h-screen items-center",
@@ -22,7 +27,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| dioxus_hover.set(false),
                     img {
                         class: "h-44 min-h-44 hover:drop-shadow-blue transition-shadow",
-                        src: "dioxus.svg",
+                        src: "data:image/svg+xml;utf8,{url_encode(DIOXUS_IMG)}",
                     },
                 }
                 a {
@@ -33,7 +38,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| tailwind_hover.set(false),
                     img {
                         class: "w-44 min-w-44 hover:drop-shadow-blue transition-shadow",
-                        src: "tailwind.svg"
+                        src: "data:image/svg+xml;utf8,{url_encode(TAILWIND_IMG)}"
                     }
                 }
                 h1 {
@@ -66,7 +71,7 @@ pub fn App(cx: Scope) -> Element {
         }
 
     );
-    
+
     cx.render(rsx)
 }
 
@@ -86,4 +91,8 @@ fn if_then_else<T>(r#if: &UseState<bool>, then: T, r#else: T) -> T {
     } else {
         r#else
     }
+}
+
+fn url_encode(svg_data: &str) -> String {
+    percent_encoding::utf8_percent_encode(svg_data, NON_ALPHANUMERIC).to_string()
 }
