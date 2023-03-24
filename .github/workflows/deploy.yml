@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches:
       - "main"
@@ -22,6 +23,7 @@ jobs:
     - name: Setup Rust Toolchain
       uses: actions-rs/toolchain@v1.0.6
       with:
+        toolchain: stable
         target: wasm32-unknown-unknown
       
     - name: Setup Dioxus Cli
