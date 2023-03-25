@@ -17,9 +17,14 @@ pub fn App(cx: Scope) -> Element {
     let rsx = rsx!(
         div {
             class: "flex flex-col h-screen items-center",
-            img {
+            a {
                 class: "absolute right-0 p-8",
-                src: "{SVG}{GITHUB_IMG}"
+                href: "https://github.com/lyonsyonii/dioxus-tailwindcss",
+                target: "_blank",
+                img {
+                    class: "w-16",
+                    src: "{SVG}{GITHUB_IMG}",
+                }
             }
             div {
                 class: "grid grid-cols-5 pb-16 mt-60 font-bold text-5xl gap-3",
