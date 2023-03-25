@@ -1,13 +1,14 @@
 # Dioxus + TailwindCSS
-Template for the Rust Dioxus desktop/web framework.
+Example and Template for the Rust Dioxus desktop/web framework.
 
-Demo: https://garriga.dev/#/dioxus-tailwind
+Demo: https://garriga.dev/dioxus-tailwindcss
 
 ## Common Dependencies
 Install tailwind-cli:
 ```bash
 yarn global add tailwindcss
 ```
+Remember to have it included in the PATH or you'll recieve an error when building the crate.
 
 ## Desktop
 ### Dependencies
@@ -62,15 +63,19 @@ dioxus serve
 ```
 ### Build
 ```bash
-dioxus build
+dioxus build --release
 ``` 
 
 ## Troubleshooting
+Problems I encountered while making this demo.
 
 * ### `public` files are not loading in Desktop builds  
-
-    Probably a bug, but at the moment images or other files will not load correctly in Desktop builds (they will in web builds though).
-
+    Probably a bug, but at the moment images and other files will not load correctly in Desktop builds (they will in web builds though).
+    
     To fix it you can use `include_str`, `include_bytes` or the macro implemented in this crate `include_url_encoded`, which allows to load and embed correctly `base64` or `svg` files.
 
-    For examples see the `src/app.rs` file. 
+    For examples see the `src/app.rs` file.
+
+* ### Drop Shadows look broken when the logos are animated in Desktop builds
+    I'm aware of it, but don't know the solution unfortunately, in web it works fine though.
+    

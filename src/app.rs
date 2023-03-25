@@ -22,20 +22,20 @@ pub fn App(cx: Scope) -> Element {
                 href: "https://github.com/lyonsyonii/dioxus-tailwindcss",
                 target: "_blank",
                 img {
-                    class: "w-16",
+                    class: "w-8 sm:w-16",
                     src: "{SVG}{GITHUB_IMG}",
                 }
             }
             div {
-                class: "grid grid-cols-5 pb-16 mt-60 font-bold text-5xl gap-3",
+                class: "grid grid-cols-5 pb-16 px-8 mt-60 font-bold text-3xl sm:text-5xl gap-3",
                 a {
-                    class: "col-span-2 place-self-end mr-6 {dioxus_hover_animation()}",
+                    class: "col-span-2 place-self-end mr-4 sm:mr-6 {dioxus_hover_animation()}",
                     href: "https://dioxuslabs.com",
                     target: "_blank",
                     onmouseenter: move |_| dioxus_hover.set(true),
                     onanimationend: move |_| dioxus_hover.set(false),
                     img {
-                        class: "h-44 min-h-44 hover:drop-shadow-blue transition-shadow",
+                        class: "h-28 sm:h-44 hover:drop-shadow-blue transition-shadow",
                         src: "{SVG}{DIOXUS_IMG}",
                     },
                 }
@@ -46,7 +46,7 @@ pub fn App(cx: Scope) -> Element {
                     onmouseenter: move |_| tailwind_hover.set(true),
                     onanimationend: move |_| tailwind_hover.set(false),
                     img {
-                        class: "w-44 min-w-44 hover:drop-shadow-blue transition-shadow",
+                        class: "w-28 sm:w-44 hover:drop-shadow-blue transition-shadow",
                         src: "{SVG}{TAILWIND_IMG}"
                     }
                 }
@@ -68,13 +68,16 @@ pub fn App(cx: Scope) -> Element {
                 onclick: move |_| count += 1,
                 "count is {count}"
             }
-            p {
-                class: "pt-4",
-                "Edit " Code {"src/app.rs"} " and run " Code {"dioxus serve"} " to test Hot Reload"
-            }
-            p {
-                class: "text-slate-500 pt-16",
-                "Click on the Dioxus and Tailwind logos to learn more"
+            div {
+                class: "absolute sm:relative bottom-8 sm:bottom-auto",
+                p {
+                    class: "pt-4 px-8",
+                    "Edit " Code {"src/app.rs"} " and run " Code {"dioxus serve"} " to test Hot Reload"
+                }
+                p {
+                    class: "text-slate-500 pt-8 sm:pt-16 px-8",
+                    "Click on the Dioxus and Tailwind logos to learn more"
+                }
             }
 
         }
