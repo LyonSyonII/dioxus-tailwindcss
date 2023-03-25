@@ -27,6 +27,8 @@ jobs:
         
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.2.1
+      with:
+        cache-on-failure: true
       
     - name: Setup Dioxus Cli
       run: cargo install dioxus-cli
