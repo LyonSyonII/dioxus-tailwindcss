@@ -25,17 +25,8 @@ jobs:
         toolchain: stable
         target: wasm32-unknown-unknown
         
-    #- name: Rust Cache
-    #  uses: Swatinem/rust-cache@v2.2.1
-      
-    - name: List
-      run: | 
-        ls -la
-        cd /
-        ls -la
-        cd /github/workspace
-        ls -la
-        cargo check
+    - name: Rust Cache
+      uses: Swatinem/rust-cache@v2.2.1
       
     - name: Setup Dioxus Cli
       run: cargo install dioxus-cli
