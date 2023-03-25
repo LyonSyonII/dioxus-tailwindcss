@@ -22,7 +22,7 @@ jobs:
     - name: Checkout if required
       if: ${{ inputs.checkout == 'true' }}
       uses: actions/checkout@v3
-
+      
     - name: Setup Rust Toolchain
       uses: actions-rs/toolchain@v1.0.6
       with:
@@ -31,6 +31,11 @@ jobs:
         
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.2.1
+      
+    - name: List
+      run: | 
+        ls -la
+        cargo check
       
     - name: Setup Dioxus Cli
       run: cargo install dioxus-cli
