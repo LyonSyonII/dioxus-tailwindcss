@@ -1,23 +1,28 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 use macros::include_url_encoded;
-
+ 
+const SVG: &'static str = "data:image/svg+xml;utf8,";
 const DIOXUS_IMG: &'static str = include_url_encoded!("assets/dioxus.svg");
 const TAILWIND_IMG: &'static str = include_url_encoded!("assets/tailwind.svg");
+const GITHUB_IMG: &'static str = include_url_encoded!("assets/github.svg");
 
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
     let dioxus_hover = use_state(cx, || false);
-    let dioxus_hover_animation = || if_then_else(dioxus_hover, "animate-dioxus", "");
+    let dioxus_hover_animation = || if **dioxus_hover { "animate-dioxus" } else { "" };
     let tailwind_hover = use_state(cx, || false);
-    let tailwind_hover_animation = || if_then_else(tailwind_hover, "animate-tailwind", "");
+    let tailwind_hover_animation = || if **tailwind_hover { "animate-tailwind" } else { "" };
 
     let rsx = rsx!(
         div {
             class: "flex flex-col h-screen items-center",
+            img {
+                class: "absolute right-0 p-8",
+                src: "{SVG}{GITHUB_IMG}"
+            }
             div {
                 class: "grid grid-cols-5 pb-16 mt-60 font-bold text-5xl gap-3",
-
                 a {
                     class: "col-span-2 place-self-end mr-6 {dioxus_hover_animation()}",
                     href: "https://dioxuslabs.com",
@@ -26,7 +31,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| dioxus_hover.set(false),
                     img {
                         class: "h-44 min-h-44 hover:drop-shadow-blue transition-shadow",
-                        src: "data:image/svg+xml;utf8,{DIOXUS_IMG}",
+                        src: "{SVG}{DIOXUS_IMG}",
                     },
                 }
                 a {
@@ -37,7 +42,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| tailwind_hover.set(false),
                     img {
                         class: "w-44 min-w-44 hover:drop-shadow-blue transition-shadow",
-                        src: "data:image/svg+xml;utf8,{TAILWIND_IMG}"
+                        src: "{SVG}{TAILWIND_IMG}"
                     }
                 }
                 h1 {
@@ -83,13 +88,3 @@ fn Code<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
         }
     })
 }
-
-fn if_then_else<T>(r#if: &UseState<bool>, then: T, r#else: T) -> T {
-    if *r#if.get() {
-        then
-    } else {
-        r#else
-    }
-}
-
-// TODO! Integrate with https://github.com/Demonthos/tiny-dioxus
