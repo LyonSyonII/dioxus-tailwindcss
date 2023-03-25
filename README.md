@@ -1,6 +1,8 @@
 # Dioxus + TailwindCSS
 Template for the Rust Dioxus desktop/web framework.
 
+Demo: https://garriga.dev/#/dioxus-tailwind
+
 ## Common Dependencies
 Install tailwind-cli:
 ```bash

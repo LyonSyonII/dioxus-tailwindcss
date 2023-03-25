@@ -16,7 +16,7 @@ pub fn App(cx: Scope) -> Element {
         div {
             class: "flex flex-col h-screen items-center",
             div {
-                class: "grid grid-co>ls-5 pb-16 mt-60 font-bold text-5xl gap-3",
+                class: "grid grid-cols-5 pb-16 mt-60 font-bold text-5xl gap-3",
 
                 a {
                     class: "col-span-2 place-self-end mr-6 {dioxus_hover_animation()}",
