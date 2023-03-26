@@ -1,18 +1,22 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use macros::include_url_encoded;
- 
-const SVG: &'static str = "data:image/svg+xml;utf8,";
-const DIOXUS_IMG: &'static str = include_url_encoded!("assets/dioxus.svg");
-const TAILWIND_IMG: &'static str = include_url_encoded!("assets/tailwind.svg");
-const GITHUB_IMG: &'static str = include_url_encoded!("assets/github.svg");
+
+const DIOXUS_IMG: &'static str = wasm_or_else("dioxus.svg", "public/dioxus.svg");
+const TAILWIND_IMG: &'static str = wasm_or_else("tailwind.svg", "public/tailwind.svg");
+const GITHUB_IMG: &'static str = wasm_or_else("github.svg", "public/github.svg");
 
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
     let dioxus_hover = use_state(cx, || false);
     let dioxus_hover_animation = || if **dioxus_hover { "animate-dioxus" } else { "" };
     let tailwind_hover = use_state(cx, || false);
-    let tailwind_hover_animation = || if **tailwind_hover { "animate-tailwind" } else { "" };
+    let tailwind_hover_animation = || {
+        if **tailwind_hover {
+            "animate-tailwind"
+        } else {
+            ""
+        }
+    };
 
     let rsx = rsx!(
         div {
@@ -23,7 +27,7 @@ pub fn App(cx: Scope) -> Element {
                 target: "_blank",
                 img {
                     class: "w-8 sm:w-16",
-                    src: "{SVG}{GITHUB_IMG}",
+                    src: "{GITHUB_IMG}",
                 }
             }
             div {
@@ -36,7 +40,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| dioxus_hover.set(false),
                     img {
                         class: "h-28 sm:h-44 hover:drop-shadow-blue transition-shadow",
-                        src: "{SVG}{DIOXUS_IMG}",
+                        src: "{DIOXUS_IMG}",
                     },
                 }
                 a {
@@ -47,7 +51,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| tailwind_hover.set(false),
                     img {
                         class: "w-28 sm:w-44 hover:drop-shadow-blue transition-shadow",
-                        src: "{SVG}{TAILWIND_IMG}"
+                        src: "{TAILWIND_IMG}"
                     }
                 }
                 h1 {
@@ -95,4 +99,12 @@ fn Code<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
             children
         }
     })
+}
+
+const fn wasm_or_else<'a, T: ?Sized>(then: &'a T, _else: &'a T) -> &'a T {
+    if cfg!(target_family = "wasm") {
+        then
+    } else {
+        _else
+    }
 }
