@@ -27,7 +27,7 @@ pub fn App(cx: Scope) -> Element {
                 }
             }
             div {
-                class: "grid grid-cols-5 pb-16 px-8 sm:mt-60 mt-24 font-bold text-3xl sm:text-5xl gap-3",
+                class: "grid grid-cols-5 pb-16 px-8 sm:mt-60 mt-28 font-bold text-3xl sm:text-5xl gap-3",
                 a {
                     class: "col-span-2 place-self-end mr-4 sm:mr-6 {dioxus_hover_animation()}",
                     href: "https://dioxuslabs.com",

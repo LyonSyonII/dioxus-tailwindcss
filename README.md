@@ -78,4 +78,10 @@ Problems I encountered while making this demo.
 
 * ### Drop Shadows look broken when the logos are animated in Desktop builds
     I'm aware of it, but don't know the solution unfortunately, in web it works fine though.
-    
+
+* ### Why not use the CDN instead of Tailwind CLI?
+    The CDN recommended by the official examples of Dioxus is outdated, and the newest version of Tailwind does not support that kind of usage.
+
+    Also, it's not recommended to use in production, as it inserts ALL css classes into your html.
+
+    The workaround I've used is based on the instructions of the [`tailwind.rs`](https://dev.to/arctic_hen7/how-to-set-up-tailwind-css-with-yew-and-trunk-il9) example (`dioxus/examples/tailwind.rs`).
