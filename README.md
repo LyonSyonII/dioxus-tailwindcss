@@ -70,11 +70,12 @@ dioxus build --release
 Problems I encountered while making this demo.
 
 * ### `public` files are not loading in Desktop builds  
-    Probably a bug, but at the moment images and other files will not load correctly in Desktop builds (they will in web builds though).
+    In Desktop builds, the path of the assets is based on the root of the crate.  
+    So, for example, to load a file located on "$CRATE_ROOT/public/example.svg" you'd write:  
+        * Web: `src: "example.svg"`  
+        * Desktop: `src: "public/example.svg"`
     
-    To fix it you can use `include_str`, `include_bytes` or the macro implemented in this crate `include_url_encoded`, which allows to load and embed correctly `base64` or `svg` files.
-
-    For examples see the `src/app.rs` file.
+    In the example I've used conditional compilation to change the path depending on the build (look at `src/app.rs -> const DIOXUS_IMG`).
 
 * ### Drop Shadows look broken when the logos are animated in Desktop builds
     I'm aware of it, but don't know the solution unfortunately, in web it works fine though.
