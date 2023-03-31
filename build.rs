@@ -3,10 +3,12 @@ fn main() {
     // panic!("{:?}", std::env::var("PATH"));
     let mut tailwind = std::process::Command::new("tailwind");
     tailwind.args([
+        "-i",
+        "src/index.css",
         "-c",
         "tailwind.config.js",
         "-o",
-        "src/index.css",
+        "public/tailwind.css",
         "--minify",
     ]);
     tailwind.env("NODE_ENV", "production");
