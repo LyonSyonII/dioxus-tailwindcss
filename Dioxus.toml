@@ -23,13 +23,13 @@ index_on_404 = true
 
 [web.watcher]
 
-watch_path = ["src"]
+watch_path = ["src", "public"]
 
 # include `assets` in web platform
 [web.resource]
 
 # CSS style file
-style = []
+style = ["public/tailwind.css"]
 
 # Javascript code file
 script = []
