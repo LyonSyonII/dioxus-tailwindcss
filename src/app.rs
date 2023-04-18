@@ -1,9 +1,9 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
 
-const DIOXUS_IMG: &'static str = wasm_or_else("dioxus.svg", "public/dioxus.svg");
-const TAILWIND_IMG: &'static str = wasm_or_else("tailwind.svg", "public/tailwind.svg");
-const GITHUB_IMG: &'static str = wasm_or_else("github.svg", "public/github.svg");
+const DIOXUS_IMG: &str = "public/dioxus.svg";
+const TAILWIND_IMG: &str = "public/tailwind.svg";
+const GITHUB_IMG: &str = "public/github.svg";
 
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
@@ -99,12 +99,4 @@ fn Code<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
             children
         }
     })
-}
-
-const fn wasm_or_else<'a, T: ?Sized>(then: &'a T, _else: &'a T) -> &'a T {
-    if cfg!(target_family = "wasm") {
-        then
-    } else {
-        _else
-    }
 }

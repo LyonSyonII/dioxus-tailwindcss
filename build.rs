@@ -1,6 +1,4 @@
 fn main() {
-    // println!("Compiling tailwindCSS...");
-    // panic!("{:?}", std::env::var("PATH"));
     let mut tailwind = std::process::Command::new("tailwind");
     tailwind.args([
         "-i",

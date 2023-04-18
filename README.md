@@ -1,19 +1,16 @@
 # Dioxus + TailwindCSS
-Example and Template for the Rust Dioxus desktop/web framework.
+Example and Template for the Rust Dioxus desktop framework.
 
 Demo: https://garriga.dev/dioxus-tailwindcss
 
-## Common Dependencies
+## Dependencies
 Install tailwind-cli:
 ```bash
 yarn global add tailwindcss
 ```
 Remember to have it included in the PATH or you'll recieve an error when building the crate.
 
-## Desktop
-### Dependencies
 #### Windows
-
 Windows Desktop apps depend on WebView2 – a library that should be installed in all modern Windows distributions. If you have Edge installed, then Dioxus will work fine. If you *don't* have Webview2, [then you can install it through Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). MS provides 3 options:
 
 1. A tiny "evergreen" *bootstrapper* that fetches an installer from Microsoft's CDN
@@ -25,7 +22,6 @@ For development purposes, use Option 1.
 ---
 
 #### Linux
-
 Webview Linux apps require WebkitGtk. When distributing, this can be part of your dependency tree in your `.rpm` or `.deb`. However, likely, your users will already have WebkitGtk.
 
 ```bash
@@ -48,15 +44,6 @@ If you run into issues, make sure you have all the basics installed, as outlined
 cargo run
 ```
 
-## Web
-```bash
-cargo install dioxus-cli
-```
-Install the required target:
-
-```bash
-rustup target add wasm32-unknown-unknown
-```
 ### Serve/Dev
 ```bash
 dioxus serve

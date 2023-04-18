@@ -6,7 +6,7 @@ name = "dioxus-tailwind"
 # default platfrom
 # you can also use `dioxus serve/build --platform XXX` to use other platform
 # value: web | desktop
-default_platform = "web"
+default_platform = "desktop"
 
 # Web `build` & `serve` dist path
 out_dir = "dist"
