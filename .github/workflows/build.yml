@@ -21,7 +21,7 @@ jobs:
 #            asset_name: ${{ BINARY_NAME }}
           - name: windows
             os: windows-latest
-            artifact_name: target/release/${{ env.BINARY_NAME }}.exe
+            artifact_name: "target/release/${{ env.BINARY_NAME }}.exe"
 #            asset_name: ${{ BINARY_NAME }}
           - name: macos
             os: macos-latest
