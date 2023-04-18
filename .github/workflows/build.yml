@@ -4,6 +4,9 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+  
+env:
+  BINARY_NAME: ${{ github.event.repository.name }} # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
 
 jobs:
   release:
@@ -11,8 +14,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # platform: [ubuntu-20.04, windows-latest]
-        platform: [windows-latest]
+        name: [linux, windows, macos]
+        include:
+          - name: linux
+            os: ubuntu-latest
+            artifact_name: target/release/${{ env.BINARY_NAME }}
+#            asset_name: ${{ BINARY_NAME }}
+          - name: windows
+            os: windows-latest
+            artifact_name: target/release/${{ env.BINARY_NAME }}.exe
+#            asset_name: ${{ BINARY_NAME }}
+          - name: macos
+            os: macos-latest
+            artifact_name: target/release/${{ env.BINARY_NAME }}
+#            asset_name: ${{ BINARY_NAME }}
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
@@ -43,13 +58,20 @@ jobs:
       #  # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
       #  run: yarn # Change this to npm, yarn or pnpm.
 
-      - name: Build the app
-        uses: rust-build/rust-build.action@v1.4.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: cargo build --release --locked
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
         with:
-          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
-          # releaseName: '${{}} v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
-          # releaseBody: 'See the assets to download and install this version.'
-          # releaseDraft: true
-          # prerelease: false
+          name: ${{ env.BINARY_NAME }}
+          path: ${{ matrix.artifact_name }}
+          
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ matrix.artifact_name }}
+ #         asset_name: ${{ matrix.asset_name }}-${{ matrix.name }}
+          tag: ${{ github.ref }}
+          overwrite: true
