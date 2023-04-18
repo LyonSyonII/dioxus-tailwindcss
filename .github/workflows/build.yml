@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         binary_name: ["${{ github.event.repository.name }}"] # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
-        artifact_path: [target/release/]
+        artifact_path: [dist/]
         name: [linux, windows, macos]
         include:
           - name: linux
@@ -41,8 +41,9 @@ jobs:
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
-        # with:
-        #  workspaces: './src-tauri -> target'
+        
+      - name: Install Dioxus
+        run: cargo install dioxus-cli
 
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
@@ -55,7 +56,7 @@ jobs:
       #  run: yarn # Change this to npm, yarn or pnpm.
 
       - name: Build
-        run: cargo build --release --locked
+        run: dioxus build --release --platform desktop
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
