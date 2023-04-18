@@ -4,11 +4,8 @@ Example and Template for the Rust Dioxus desktop/web framework.
 Demo: https://garriga.dev/dioxus-tailwindcss
 
 ## Common Dependencies
-Install tailwind-cli:
-```bash
-yarn global add tailwindcss
-```
-Remember to have it included in the PATH or you'll recieve an error when building the crate.
+A [`nodejs`](https://nodejs.org/en) installation is required.
+If [`yarn`](https://yarnpkg.com/getting-started/install) is installed, it'll be prioritized.
 
 ## Desktop
 ### Dependencies
