@@ -1,3 +1,4 @@
+
 fn main() {
     // Install required packages
     let toolchain = install_packages();
@@ -27,12 +28,27 @@ fn main() {
 /// # Panic
 /// Will panic if none of the toolchains is installed.
 fn install_packages() -> &'static str {
-    if std::process::Command::new("yarn").arg("install").spawn().is_ok() {
-        return "yarn"
+    let yarn = if_windows("yarn.cmd", "yarn");
+    let npm = if_windows("npm.cmd", "npm");
+    let npx = if_windows("npx.cmd", "npx");
+
+    if std::process::Command::new(yarn).arg("install").spawn().is_ok() {
+        return yarn
     }
     
-    match std::process::Command::new("node").arg("install").spawn() {
-        Ok(_) => "npx",
+    match std::process::Command::new(npm).arg("install").spawn() {
+        Ok(_) => npx,
         Err(e) => panic!("ERROR: Npm or Yarn installation is needed.\n{e}"),
+    }
+}
+
+const fn if_windows(windows: &'static str, unix: &'static str) -> &'static str {
+    #[cfg(windows)]
+    {
+        windows
+    }
+    #[cfg(unix)]
+    {
+        unix
     }
 }
