@@ -4,8 +4,6 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
-env:
-  BINARY_NAME: ${{ github.event.repository.name }} # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
 
 jobs:
   release:
@@ -28,6 +26,8 @@ jobs:
             artifact_name: target/release/${{ env.BINARY_NAME }}
 #            asset_name: ${{ BINARY_NAME }}
     runs-on: ${{ matrix.platform }}
+    env:
+      BINARY_NAME: ${{ github.event.repository.name }} # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
