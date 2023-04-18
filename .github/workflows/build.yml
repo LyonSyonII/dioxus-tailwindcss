@@ -11,21 +11,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        BINARY_NAME: ${{ github.event.repository.name }} # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
+        binary_name: ["${{ github.event.repository.name }}"] # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
+        artifact_path: [target/release/]
         name: [linux, windows, macos]
         include:
           - name: linux
             os: ubuntu-latest
-            artifact_name: target/release/
-            asset_name: ${{ matrix.BINARY_NAME }}
+            artifact_extension: ""
           - name: windows
             os: windows-latest
-            artifact_name: "target/release/${{ matrix.BINARY_NAME }}.exe"
-#            asset_name: ${{ BINARY_NAME }}
+            artifact_extension: ".exe"
           - name: macos
             os: macos-latest
-            artifact_name: target/release/${{ matrix.BINARY_NAME }}
-#            asset_name: ${{ BINARY_NAME }}
+            artifact_extension: ""
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -70,7 +68,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ matrix.artifact_name }}
-          asset_name: ${{ matrix.BINARY_NAME }}-${{ matrix.name }}
+          file: ${{ matrix.artifact_path }}${{matrix.binary_name}}${{matrix.artifact_extension}}
+          asset_name: ${{ matrix.binary_name }}-${{ matrix.name }}
           tag: ${{ github.ref }}
           overwrite: true
