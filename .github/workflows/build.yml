@@ -24,8 +24,7 @@ jobs:
           - name: macos
             os: macos-latest
             artifact_extension: ""
-    runs-on: ${{ matrix.platform }}
-
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
