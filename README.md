@@ -4,11 +4,8 @@ Example and Template for the Rust Dioxus desktop framework.
 Demo: https://garriga.dev/dioxus-tailwindcss
 
 ## Dependencies
-Install tailwind-cli:
-```bash
-yarn global add tailwindcss
-```
-Remember to have it included in the PATH or you'll recieve an error when building the crate.
+A [`nodejs`](https://nodejs.org/en) installation is required.
+If [`yarn`](https://yarnpkg.com/getting-started/install) is installed, it'll be prioritized.
 
 #### Windows
 Windows Desktop apps depend on WebView2 – a library that should be installed in all modern Windows distributions. If you have Edge installed, then Dioxus will work fine. If you *don't* have Webview2, [then you can install it through Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/webview2/). MS provides 3 options:

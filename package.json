@@ -1,0 +1,11 @@
+{
+  "name": "dioxus-tailwindcss",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/LyonSyonII/dioxus-tailwindcss.git",
+  "author": "LyonSyonII <slimystudios@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  }
+}
