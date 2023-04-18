@@ -1,4 +1,3 @@
-use std::borrow::Cow;
 
 fn main() {
     // Install required packages
