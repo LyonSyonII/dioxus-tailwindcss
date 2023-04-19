@@ -7,8 +7,11 @@ description = "Dioxus + Tailwindcss cross-platform desktop demo"
 [package.metadata.bundle]
 
 [dependencies]
+base64 = "0.21.0"
 dioxus = "0.3.2"
+include_dir = "0.7.3"
 macros = { path = "macros" }
+once_cell = "1.17.1"
 
 [target.'cfg(any(unix, windows))'.dependencies]
 dioxus-desktop = { version = "0.3.0" }

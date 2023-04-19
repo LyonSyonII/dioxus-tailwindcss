@@ -12,7 +12,7 @@ default_platform = "desktop"
 out_dir = "dist"
 
 # resource (static) file folder
-asset_dir = "public"
+# asset_dir = "public"
 
 [web.app]
 
@@ -45,3 +45,23 @@ script = []
 available = true
 
 required = []
+
+### [bundle]
+### # Bundle identifier
+### identifier = "com.dioxus.app"
+### # Bundle publisher
+### publisher = "dioxus"
+### # Bundle icon. On windows, the icon file will default to `icons/icon.ico`
+### icon = ["../../public/icon.png"]
+### # Bundle resources
+### resources = ["../../public/*"]
+### # Bundle copyright
+### copyright = "Copyright (c) Jane Doe 2016. All rights reserved."
+### # Bundle category
+### category = "Business"
+### # Bundle short description
+### short_description = "A short description of the bundle."
+### # Bundle long description
+### long_description = """
+### A long description of the bundle.
+### """

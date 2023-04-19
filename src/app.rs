@@ -1,9 +1,17 @@
 #![allow(non_snake_case)]
-use dioxus::prelude::*;
+use std::path::Path;
 
-const DIOXUS_IMG: &str = "public/dioxus.svg";
-const TAILWIND_IMG: &str = "public/tailwind.svg";
-const GITHUB_IMG: &str = "public/github.svg";
+use crate::{get_file_base64};
+use dioxus::{prelude::*};
+use once_cell::sync::Lazy;
+
+
+fn svg_64(path: impl AsRef<Path>) -> String {
+    format!("data:image/svg+xml;base64,{}", get_file_base64(path))
+}
+static DIOXUS_IMG: Lazy<String> = Lazy::new(|| svg_64("dioxus.svg"));
+static TAILWIND_IMG: Lazy<String> = Lazy::new(|| svg_64("tailwind.svg"));
+static GITHUB_IMG: Lazy<String> = Lazy::new(|| svg_64("github.svg"));
 
 pub fn App(cx: Scope) -> Element {
     let mut count = use_state(cx, || 0);
@@ -27,7 +35,7 @@ pub fn App(cx: Scope) -> Element {
                 target: "_blank",
                 img {
                     class: "w-8 sm:w-16",
-                    src: "{GITHUB_IMG}",
+                    src: "{*GITHUB_IMG}",
                 }
             }
             div {
@@ -40,7 +48,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| dioxus_hover.set(false),
                     img {
                         class: "h-28 sm:h-44 hover:drop-shadow-blue transition-shadow",
-                        src: "{DIOXUS_IMG}",
+                        src: "{*DIOXUS_IMG}",
                     },
                 }
                 a {
@@ -51,7 +59,7 @@ pub fn App(cx: Scope) -> Element {
                     onanimationend: move |_| tailwind_hover.set(false),
                     img {
                         class: "w-28 sm:w-44 hover:drop-shadow-blue transition-shadow",
-                        src: "{TAILWIND_IMG}"
+                        src: "{*TAILWIND_IMG}"
                     }
                 }
                 h1 {
@@ -99,4 +107,9 @@ fn Code<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
             children
         }
     })
+}
+
+#[inline(always)]
+fn static_svg(base64: &Lazy<String>) -> String {
+    format!(",{}", **base64)
 }
