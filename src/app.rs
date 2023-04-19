@@ -108,8 +108,3 @@ fn Code<'a>(cx: Scope<'a>, children: Element<'a>) -> Element<'a> {
         }
     })
 }
-
-#[inline(always)]
-fn static_svg(base64: &Lazy<String>) -> String {
-    format!(",{}", **base64)
-}

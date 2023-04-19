@@ -1,0 +1,74 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions: write-all
+    strategy:
+      fail-fast: false
+      matrix:
+        binary_name: ["${{ github.event.repository.name }}"] # Uses repository name by default, CHANGE IF THE NAME OF YOUR CRATE IS DIFFERENT
+        artifact_path: [dist/]
+        name: [linux, windows, macos]
+        include:
+          - name: linux
+            os: ubuntu-latest
+            artifact_extension: ""
+          - name: windows
+            os: windows-latest
+            artifact_extension: ".exe"
+          - name: macos
+            os: macos-latest
+            artifact_extension: ""
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        # You can remove libayatana-appindicator3-dev if you don't use the system tray feature.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libgtk-3-dev libappindicator3-dev
+
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        
+      - name: Install Dioxus
+        run: cargo install dioxus-cli
+
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'yarn' # Set this to npm, yarn or pnpm.
+      
+      #- name: Install app dependencies and build web
+      #  # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
+      #  run: yarn # Change this to npm, yarn or pnpm.
+
+      - name: Build
+        run: dioxus build --release --platform desktop
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.binary_name }}-${{ matrix.name }}
+          path: ${{ matrix.artifact_path }}${{ matrix.binary_name }}
+          
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ matrix.artifact_path }}${{matrix.binary_name}}${{matrix.artifact_extension}}
+          asset_name: ${{ matrix.binary_name }}-${{ matrix.name }}
+          tag: ${{ github.ref }}
+          overwrite: true
