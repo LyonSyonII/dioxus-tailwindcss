@@ -1,8 +1,7 @@
-
 fn main() {
     // Install required packages
     let toolchain = install_packages();
-    
+
     // Compile TailwindCSS .css file
     std::process::Command::new(toolchain)
         .args([
@@ -20,11 +19,10 @@ fn main() {
         .unwrap();
 }
 
-
 /// Installs required packages and selects toolchain to use.
-/// 
+///
 /// It will prioritize `yarn` over `npm`.
-/// 
+///
 /// # Panic
 /// Will panic if none of the toolchains is installed.
 fn install_packages() -> &'static str {
@@ -32,10 +30,14 @@ fn install_packages() -> &'static str {
     let npm = if_windows("npm.cmd", "npm");
     let npx = if_windows("npx.cmd", "npx");
 
-    if std::process::Command::new(yarn).arg("install").spawn().is_ok() {
-        return yarn
+    if std::process::Command::new(yarn)
+        .arg("install")
+        .spawn()
+        .is_ok()
+    {
+        return yarn;
     }
-    
+
     match std::process::Command::new(npm).arg("install").spawn() {
         Ok(_) => npx,
         Err(e) => panic!("ERROR: Npm or Yarn installation is needed.\n{e}"),
