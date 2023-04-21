@@ -5,10 +5,7 @@ use dioxus::prelude::*;
 
 mod app;
 mod public;
-use app::App;
 use image::EncodableLayout;
-
-use crate::public::{get_file_bytes, try_get_file_bytes};
 
 fn main() {
     let title = env!("CARGO_PKG_NAME");
@@ -56,7 +53,7 @@ fn main() {
 }
 
 fn Root(cx: Scope) -> Element {
-    let rsx = rsx!(App {});
+    let rsx = rsx!(app::App {});
 
     cx.render(rsx)
 }
