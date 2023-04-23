@@ -1,11 +1,11 @@
 #![allow(non_snake_case)]
 
-use crate::public::StaticPublic;
 use dioxus::prelude::*;
-
-static DIOXUS: public::Svg = public::StaticPublic::svg("dioxus.svg");
+use crate::public; // Default path for public files is "$crate/public", change it in the "public.rs" file
 
 pub fn App(cx: Scope) -> Element {
-    let rsx = rsx!("{DIOXUS}");
+    let rsx = rsx!(
+        "Your code here"
+    );
     cx.render(rsx)
 }

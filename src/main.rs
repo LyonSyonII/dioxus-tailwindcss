@@ -1,11 +1,9 @@
 #![allow(non_snake_case)]
-use std::ops::Deref;
 
 use dioxus::prelude::*;
 
 mod app;
-mod public;
-use image::EncodableLayout;
+pub use dioxus_tailwindcss::public;
 
 fn main() {
     let title = env!("CARGO_PKG_NAME");
@@ -14,8 +12,8 @@ fn main() {
         use image::io::Reader as ImageReader;
         use image::ImageFormat;
         use std::io::Cursor;
-
-        let mut reader = ImageReader::new(Cursor::new(try_get_file_bytes("icon.png")?));
+        
+        let mut reader = ImageReader::new(Cursor::new(public::try_get_file_bytes("icon.png")?));
         reader.set_format(ImageFormat::Png);
         let icon = reader.decode().unwrap();
         let bytes = icon.as_rgba8().unwrap();
