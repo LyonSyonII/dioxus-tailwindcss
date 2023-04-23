@@ -44,13 +44,13 @@ fn install_packages() -> &'static str {
     }
 }
 
-const fn if_windows(windows: &'static str, unix: &'static str) -> &'static str {
+const fn if_windows(_windows: &'static str, _unix: &'static str) -> &'static str {
     #[cfg(windows)]
     {
-        windows
+        _windows
     }
     #[cfg(unix)]
     {
-        unix
+        _unix
     }
 }
